@@ -1,6 +1,6 @@
 {
   "name": "capacitor-tcp-connect",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "description": "a plugin to connect a device to printer using tcp connection",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
