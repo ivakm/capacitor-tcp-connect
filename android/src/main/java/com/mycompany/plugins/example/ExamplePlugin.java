@@ -3,20 +3,31 @@ package com.mycompany.plugins.example;
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
-import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
+import java.io.OutputStream;
+import java.net.Socket;
 
-@CapacitorPlugin(name = "Example")
+@CapacitorPlugin(name = "Printer")
 public class ExamplePlugin extends Plugin {
 
-    private Example implementation = new Example();
+    @PluginMethod()
+    public void open(PluginCall call) {
+        String ip = call.getString("ip");
+        String port = call.getString("port");
+        String text = call.getString("text");
 
-    @PluginMethod
-    public void echo(PluginCall call) {
-        String value = call.getString("value");
+        try {
+            Socket socket = new Socket(ip, Integer.parseInt(port));
+            OutputStream outputStream = socket.getOutputStream();
+            outputStream.write(text.getBytes());
+            outputStream.close();
+            socket.close();
 
-        JSObject ret = new JSObject();
-        ret.put("value", implementation.echo(value));
-        call.resolve(ret);
+            JSObject ret = new JSObject();
+            ret.put("success", true);
+            call.resolve(ret);
+        } catch (Exception e) {
+            call.reject(e.getMessage(), e);
+        }
     }
 }
