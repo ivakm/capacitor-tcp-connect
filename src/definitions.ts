@@ -1,3 +1,7 @@
 export interface SocketConnectPlugin {
-  echo(options: { value: string }): Promise<{ value: string }>;
+  echo(options: {
+    ip: string;
+    port: string;
+    text: string;
+  }): Promise<{ value: string }>;
 }
