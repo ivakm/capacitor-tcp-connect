@@ -4,11 +4,13 @@ import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.annotation.CapacitorPlugin;
+import com.getcapacitor.annotation.PluginMethod;
+
 import java.io.OutputStream;
 import java.net.Socket;
 
-@CapacitorPlugin(name = "Printer")
-public class ExamplePlugin extends Plugin {
+@CapacitorPlugin(name = "SocketConnect")
+public class SocketConnectPlugin extends Plugin {
 
     @PluginMethod()
     public void open(PluginCall call) {

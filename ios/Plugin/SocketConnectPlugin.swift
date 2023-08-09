@@ -1,15 +1,19 @@
 import Foundation
 import Network
 
-@objc(ExamplePlugin)
-public class ExamplePlugin: CAPPlugin {
+@objc(SocketConnectPlugin)
+public class SocketConnectPlugin: CAPPlugin {
 
     @objc func open(_ call: CAPPluginCall) {
-        let ip = call.getString("ip") ?? ""
-        let port = call.getString("port") ?? ""
-        let text = call.getString("text") ?? ""
+        guard let ip = call.getString("ip"),
+              let portString = call.getString("port"),
+              let port = NWEndpoint.Port(portString),
+              let text = call.getString("text") else {
+            call.reject("Missing or invalid parameters")
+            return
+        }
 
-        let nwConnection = NWConnection(host: NWEndpoint.Host(ip), port: NWEndpoint.Port(port)!, using: .tcp)
+        let nwConnection = NWConnection(host: NWEndpoint.Host(ip), port: port, using: .tcp)
         nwConnection.stateUpdateHandler = { (newState) in
             switch (newState) {
             case .ready:
