@@ -1,3 +1,4 @@
+import Capacitor
 import Foundation
 import Network
 
@@ -14,7 +15,7 @@ public class SocketConnectPlugin: CAPPlugin {
         }
 
         let nwConnection = NWConnection(host: NWEndpoint.Host(ip), port: port, using: .tcp)
-        nwConnection.stateUpdateHandler = { (newState) in
+        nwConnection.stateUpdateHandler = { (newState: NWConnection.State) in
             switch (newState) {
             case .ready:
                 nwConnection.send(content: text.data(using: .utf8), completion: NWConnection.SendCompletion.contentProcessed { (error) in
