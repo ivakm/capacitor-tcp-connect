@@ -1,5 +1,5 @@
-import Capacitor
 import Foundation
+import Capacitor
 import Network
 
 @objc(SocketConnectPlugin)
