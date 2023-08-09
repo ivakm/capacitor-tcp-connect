@@ -1,5 +1,5 @@
 export interface SocketConnectPlugin {
-  echo(options: {
+  open(options: {
     ip: string;
     port: string;
     text: string;
